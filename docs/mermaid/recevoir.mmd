@@ -1,0 +1,14 @@
+sequenceDiagram
+    autonumber
+    participant Consumer
+    participant NotificationServer
+    participant AuthentificationServer
+
+    Consumer ->> NotificationServer: Demande de connexion avec Token
+    NotificationServer->>AuthentificationServer: Validation du Token
+    AuthentificationServer -->> NotificationServer: Validation response
+    alt Token is valid
+        NotificationServer->>Consumer: Envoyer les messages
+    else Token is not valid
+        NotificationServer->>Consumer: Authentification Failed
+    end

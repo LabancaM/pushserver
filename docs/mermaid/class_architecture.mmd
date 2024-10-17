@@ -1,0 +1,52 @@
+---
+title: 
+---
+classDiagram
+    NotificationServices "1"--o"1..*" Topic
+    Topic "1"-->"1..*" Message
+    Clients "1..*"--o"1..*" Topic
+    Clients -- FilterTypes
+    Clients "1..*"--"1" NotificationTypes
+    FilterTypes "1"--"1..*" Message
+    FilterTypes <|-- lastMessage
+    FilterTypes <|-- allMesssages
+    FilterTypes <|-- countMessage
+    NotificationTypes <|-- EmailNotification
+    NotificationTypes <|-- PehuNotification
+    NotificationTypes <|-- SmsNotification
+   
+   Clients: -id_client
+   Clients: -typeNotification
+   Clients: -typeFiltre
+
+   FilterTypes: -filter(Message)
+   NotificationTypes: + execute()
+   NotificationTypes: + notify()
+
+    class Topic{
+        - name: string
+        - Message: message[]
+        - clients: Client[]
+        + addMessage()
+        + subscribe()
+        + unsubscribe() 
+    }
+    class Message{
+        - id: int
+        - timestamp: datetime
+        - content: string
+        + storeMessage()
+        + readMessage()
+        + deleteMessage()
+    }
+    class NotificationServices{
+        - Topic: Topic[]
+        - clients: IClient[]
+        + createTopic()
+        + deleteTopic()
+        + publishMessage()
+        + subscribe()
+        + unsubscribe()
+        + validateToken()
+        + checkRigth()
+    }

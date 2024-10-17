@@ -1,0 +1,17 @@
+sequenceDiagram
+    autonumber
+    participant Client
+    participant NotificationServer
+    participant Plateforme
+
+    Client ->> NotificationServer: Demande de Souscription avec Token
+    NotificationServer->>Plateforme: Validation du Token
+    Plateforme -->> NotificationServer: Validation response
+    alt Token is valid
+        NotificationServer->>NotificationServer: Souscription
+        NotificationServer->>Client: Souscription done
+
+    else Token is not valid
+        NotificationServer->>Client: Authentification Failed
+    end
+   

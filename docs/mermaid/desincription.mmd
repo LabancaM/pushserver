@@ -1,0 +1,18 @@
+sequenceDiagram
+    autonumber
+    participant Client
+    participant NotificationServer
+    participant AuthentificationServer
+
+    Client ->> NotificationServer: Demande de desincription avec Token
+    NotificationServer->>AuthentificationServer: Validation du Token
+    AuthentificationServer -->> NotificationServer: Validation response
+    alt Token is valid and topic exist
+        NotificationServer->>NotificationServer: desinscription
+        NotificationServer->>Client: desinscription done
+
+    else  Token is not valid 
+        NotificationServer->>Client: Authentification Failed
+    else  Topic not exist
+        NotificationServer->>Client: Desinscription Failed
+    end

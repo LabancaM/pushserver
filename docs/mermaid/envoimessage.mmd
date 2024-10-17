@@ -1,0 +1,18 @@
+sequenceDiagram
+    autonumber
+    participant Producer
+    participant NotificationServer
+    participant AuthentificationServer
+    participant Consumer
+
+    Producer ->> NotificationServer: Envoi de message sur un topic avec Token
+    NotificationServer->>AuthentificationServer: Validation du Token
+    AuthentificationServer -->> NotificationServer: Validation response
+    alt Token is valid and topic exist
+        NotificationServer->>Consumer: Envoie de message
+        NotificationServer->>Producer: Message sent
+    else Token is not valid
+        NotificationServer->>Producer: Authentification Failed
+    else Topic not exist
+        NotificationServer->>Producer: sending failed
+    end

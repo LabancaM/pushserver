@@ -1,0 +1,12 @@
+sequenceDiagram
+    autonumber
+    participant Client
+    participant NotificationServer
+    participant AuthentificationServer
+
+    Client ->> NotificationServer: Demande de token d'acces
+    NotificationServer ->> AuthentificationServer: Envoie demande d'authentification
+    AuthentificationServer ->> AuthentificationServer: Génère token d'authentification
+    AuthentificationServer -->> NotificationServer: Renvoie le token
+    NotificationServer -->> Client: Renvoie le token
+    Client ->> NotificationServer: Utilise le token pour accéder aux ressources

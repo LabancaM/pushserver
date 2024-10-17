@@ -1,0 +1,18 @@
+sequenceDiagram
+    autonumber
+    participant Client
+    participant NotificationServer
+    participant AuthentificationServer
+
+    Client ->> NotificationServer: Demande de Souscription avec Token
+    NotificationServer->>AuthentificationServer: Validation du Token
+    AuthentificationServer -->> NotificationServer: Validation response
+    alt Token is valid and topic exist
+        NotificationServer->>NotificationServer: Souscription
+        NotificationServer->>Client: Souscription done
+
+    else Token is not valid
+        NotificationServer->>Client: Authentification Failed
+    else Topic not exist
+        NotificationServer->>Client: Souscription Failed
+    end

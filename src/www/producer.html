@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestion des Topics</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    section {
+        display: none;
+        padding: 20px;
+        margin: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        margin: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    select, textarea {
+        width: 100%;
+        padding: 5px;
+        margin: 5px 0;
+        box-sizing: border-box;
+    }
+    .small-input {
+        width: 50%;
+    }
+</style>
+</head>
+<body>
+    <button id="sendMessageBtn">Envoyer un Message</button>
+    <button id="createTopicBtn">Créer un Topic</button>
+    <button id="deleteTopicBtn">Supprimer un Topic</button>
+
+    <section id="sendMessageSection">
+        <h2>Envoyer un Message sur un Topic</h2>
+        <form>
+            <select id="topicName" class="small-input">
+                <option value="Topic 1">Topic 1</option>
+                <option value="Topic 2">Topic 2</option>
+                <option value="Topic 3">Topic 3</option>
+            </select>
+            <textarea id="messageContent" placeholder="Contenu du Message" rows="5"></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+
+    <section id="createTopicSection">
+        <h2>Créer un Topic</h2>
+        <form>
+            <input type="text" id="topicName" class="small-input" placeholder="Nom du Topic">
+            <button type="submit">Créer</button>
+        </form>
+    </section>
+
+    <section id="deleteTopicSection">
+        <h2>Supprimer un Topic</h2>
+        <form>
+            <input type="text" id="topicId" class="small-input" placeholder="ID du Topic à supprimer">
+            <button type="submit">Supprimer</button>
+        </form>
+    </section>
+
+    <script>
+        document.getElementById("sendMessageBtn").addEventListener("click", function() {
+            showSection("sendMessageSection");
+        });
+
+        document.getElementById("createTopicBtn").addEventListener("click", function() {
+            showSection("createTopicSection");
+        });
+
+        document.getElementById("deleteTopicBtn").addEventListener("click", function() {
+            showSection("deleteTopicSection");
+        });
+
+        function showSection(sectionId) {
+            document.querySelectorAll("section").forEach(section => {
+                section.style.display = "none";
+            });
+            document.getElementById(sectionId).style.display = "block";
+        }
+    </script>
+</body>
+</html>

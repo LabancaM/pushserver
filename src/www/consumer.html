@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestion des Messages</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color:bisque;
+    }
+    section {
+        display: none;
+        padding: 20px;
+        margin: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        margin: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    select, .small-input {
+        width: 50%;
+        padding: 5px;
+        margin: 5px 0;
+        box-sizing: border-box;
+    }
+</style>
+</head>
+<body>
+    <button id="subscribeBtn">S'abonner à un Topic</button>
+    <button id="unsubscribeBtn">Se désabonner d'un Topic</button>
+    <button id="messageListBtn">Liste des Messages Reçus</button>
+
+    <section id="subscribeSection">
+        <h2>S'abonner à un Topic</h2>
+        <form id="subscribeForm" onsubmit="return confirmAction('S\'abonner à ce topic ?')">
+            <select id="subscribeTopic" class="small-input">
+                <option value="Topic 1">Topic 1</option>
+                <option value="Topic 2">Topic 2</option>
+                <option value="Topic 3">Topic 3</option>
+            </select>
+            <button type="submit">S'abonner</button>
+        </form>
+    </section>
+
+    <section id="unsubscribeSection">
+        <h2>Se désabonner d'un Topic</h2>
+        <form id="unsubscribeForm" onsubmit="return confirmAction('Se désabonner de ce topic ?')">
+            <select id="unsubscribeTopic" class="small-input">
+                <option value="Topic 1">Topic 1</option>
+                <option value="Topic 2">Topic 2</option>
+                <option value="Topic 3">Topic 3</option>
+            </select>
+            <button type="submit">Se désabonner</button>
+        </form>
+    </section>
+
+    <section id="messageListSection">
+        <h2>Liste des Messages Reçus</h2>
+        <ul id="messageList">
+            <li id="message_1" onclick="showMessageContent(1)">Message 1 <button onclick="deleteMessage(1)">Supprimer</button></li>
+            <li id="message_2" onclick="showMessageContent(2)">Message 2 <button onclick="deleteMessage(2)">Supprimer</button></li>
+            <li id="message_3" onclick="showMessageContent(3)">Message 3 <button onclick="deleteMessage(3)">Supprimer</button></li>
+        </ul>
+        <div id="messageContent" style="display: none;">
+            <h3>Contenu du Message</h3>
+            <p id="messageContentText"></p>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById("subscribeBtn").addEventListener("click", function() {
+            showSection("subscribeSection");
+        });
+
+        document.getElementById("unsubscribeBtn").addEventListener("click", function() {
+            showSection("unsubscribeSection");
+        });
+
+        document.getElementById("messageListBtn").addEventListener("click", function() {
+            showSection("messageListSection");
+        });
+
+        function showSection(sectionId) {
+            document.querySelectorAll("section").forEach(section => {
+                section.style.display = "none";
+            });
+            document.getElementById(sectionId).style.display = "block";
+        }
+
+        function confirmAction(message) {
+            return confirm(message);
+        }
+
+        function deleteMessage(messageId) {
+            if (confirm("Voulez-vous vraiment supprimer ce message ?")) {
+                // Code pour supprimer le message avec l'ID messageId
+                document.getElementById("messageList").removeChild(document.getElementById("message_" + messageId));
+                alert("Message supprimé avec succès!");
+            }
+        }
+
+        function showMessageContent(messageId) {
+            var message = document.getElementById("message_" + messageId).textContent;
+            document.getElementById("messageContentText").textContent = message;
+            document.getElementById("messageContent").style.display = "block";
+        }
+    </script>
+</body>
+</html>

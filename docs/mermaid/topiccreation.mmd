@@ -1,0 +1,20 @@
+sequenceDiagram
+    autonumber
+    participant Client
+    participant NotificationServer
+    participant AuthentificationServer
+
+    Client ->> NotificationServer: Demande de creation de topic avec Token
+    NotificationServer->>AuthentificationServer: Validation du Token
+    AuthentificationServer ->> AuthentificationServer: Validation token
+    AuthentificationServer -->> NotificationServer: Validation response
+    alt Token is valid and topic not exist
+        NotificationServer->>NotificationServer: Creation topic
+        NotificationServer-->>Client: Creation done
+    end
+    alt Token is not valid
+        NotificationServer-->>Client: Authentification Failed
+    end
+    alt Topic exist
+        NotificationServer-->>Client: Topic already exist
+    end

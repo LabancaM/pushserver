@@ -1,0 +1,19 @@
+sequenceDiagram
+    autonumber
+    participant Client
+    participant NotificationServer
+    participant AuthentificationServer
+
+    Client ->> NotificationServer: Demande de suppression de topic avec Token
+    NotificationServer->>AuthentificationServer: Validation du Token
+    AuthentificationServer -->> NotificationServer: Validation response
+    alt Token is valid and topic exist and topic owner
+        NotificationServer->>NotificationServer: Suppression topic
+        NotificationServer->>Client: Creation done
+    else Token is not valid
+        NotificationServer->>Client: Authentification Failed
+    else Topic not exist
+        NotificationServer->>Client: Topic not exist
+    else Not Topic owner
+        NotificationServer->>Client: Not allowed do delete
+    end
